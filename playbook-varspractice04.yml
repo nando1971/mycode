@@ -1,4 +1,4 @@
----
+strip('/').lstrip('//') }} >> /tmp/teamsites.txt"---
 - name: A playbook that manipulates data from uri
   hosts: localhost
 
@@ -32,8 +32,9 @@
 
   # transform http://pittsburghpenguins.com/ into pittsburghpenguins.com
   - name: Loop across the teams and write out a lite of URLs without the http:// or trailing /
-    shell: "echo {{ item.officialSiteUrl.lstrip('http:').rstrip('/').lstrip('//') }} >> /tmp/teamsites.txt"
+    shell: "echo {{ item.officialSiteUrl|regex_replace('http(s)?(:)?(VV)?|(VV)?V(,*)',") }} > > /tmp/teamsites.txt"
+  #shell: "echo {{ item.officialSiteUrl.lstrip('http*:').rstrip('/').lstrip('//') }} >> /tmp/teamsites.txt"
     loop: "{{ results.json.teams }}"
     tags:
       - stringslice
-
+  
