@@ -1,0 +1,31 @@
+---
+
+- Name: Create directory and files on remote host
+  
+  hosts: planetexpress
+
+  gather_facts: true
+
+  tasks:
+
+    -name: Create a directory
+
+    file:
+
+      path: /tmp/greeting_directory
+
+      state: directory
+
+    - name: Create file
+
+      template: 
+
+      src: greeting_template.j2
+
+      dest: /tmp/greeting_directory/greeting.txt
+
+    vars: 
+
+    hostname: "{{ ansible_hostname }}"
+
+    os: "{{ansible_os_family }}"
